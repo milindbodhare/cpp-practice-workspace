@@ -1,0 +1,33 @@
+digraph SyncMechanisms {
+    rankdir=LR;
+    node [shape=box, style=filled, color="#d0e1f9", fontname="Consolas"];
+
+    Mutex [label="std::mutex\n(Basic Lock)"];
+    RecursiveMutex [label="std::recursive_mutex\n(Reentrant Lock)"];
+    TimedMutex [label="std::timed_mutex\n(Time-Constrained Lock)"];
+    SharedMutex [label="std::shared_mutex\n(Reader/Writer Lock)"];
+    ConditionVar [label="std::condition_variable\n(Signaling)"];
+    LockGuard [label="std::lock_guard\n(RAII Wrapper)"];
+    UniqueLock [label="std::unique_lock\n(Flexible RAII)"];
+    ScopedLock [label="std::scoped_lock\n(Multi-mutex Lock)"];
+    Atomics [label="std::atomic\n(Lock-Free Ops)"];
+
+    // RAII wrappers connect to the basic mutex
+    LockGuard -> Mutex [label="wraps"];
+    UniqueLock -> Mutex [label="wraps"];
+    ScopedLock -> Mutex [label="wraps multiple"];
+
+    // Derived mutex types
+    RecursiveMutex -> Mutex [style=dashed, label="extends"];
+    TimedMutex -> Mutex [style=dashed, label="extends"];
+    SharedMutex -> Mutex [style=dashed, label="extends"];
+
+    // Condition variable depends on mutex
+    ConditionVar -> Mutex [label="requires"];
+
+    // Atomics are separate
+    Atomics -> Mutex [style=dotted, label="no lock"];
+
+    // Styling edges
+    edge [fontname="Consolas", fontsize=10];
+}
