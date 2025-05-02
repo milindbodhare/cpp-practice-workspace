@@ -1,0 +1,86 @@
+digraph SharedPtr {
+    node [shape=box, style=filled, fillcolor=lightgreen, fontname=Helvetica];
+
+    P1 -> Object;
+    P2 -> Object;
+
+    Object [shape=circle, label="Object", style=filled, fillcolor=lightgreen];
+
+    label="shared_ptr maintains the reference count\nHere the reference count is 2";
+    labelloc="t";
+    fontsize=12;
+}
+
+
+digraph UniquePtrTransfer {
+    node [shape=box, fontname=Helvetica];
+
+    P1 [label="P1", style=filled, fillcolor=gray];
+    P2 [label="P2", style=filled, fillcolor=lightgreen];
+    Object [shape=circle, label="Object", style=filled, fillcolor=lightgreen];
+
+    P2 -> Object;
+
+    label="We can transfer the control of object to P2";
+    labelloc="t";
+    fontsize=12;
+}
+
+
+digraph AutoPtrFlow {
+    rankdir=LR;
+    node [shape=box, fontname=Helvetica];
+
+    subgraph cluster0 {
+        label="Initially";
+        PointerP1_0 [label="Pointer P1\nNull"];
+        ResourceR_0 [shape=ellipse, label="Resource R"];
+        PointerP2_0 [label="Pointer P2\nNull"];
+    }
+
+    subgraph cluster1 {
+        label="P1 gets R";
+        PointerP1_1 [label="Pointer P1"];
+        ResourceR_1 [shape=ellipse, label="Resource R"];
+        PointerP2_1 [label="Pointer P2\nNull"];
+        PointerP1_1 -> ResourceR_1;
+    }
+
+    subgraph cluster2 {
+        label="P2 wants R";
+        PointerP1_2 [label="Pointer P1"];
+        ResourceR_2 [shape=ellipse, label="Resource R"];
+        PointerP2_2 [label="Pointer P2"];
+        PointerP1_2 -> ResourceR_2 [style=dashed];
+        PointerP2_2 -> ResourceR_2;
+    }
+
+    subgraph cluster3 {
+        label="P2 gets R";
+        PointerP1_3 [label="Pointer P1\nNull"];
+        ResourceR_3 [shape=ellipse, label="Resource R"];
+        PointerP2_3 [label="Pointer P2"];
+        PointerP2_3 -> ResourceR_3;
+    }
+
+    labelloc="t";
+    label="Auto Pointer in C++";
+    fontsize=14;
+}
+
+
+digraph WeakPtrOwnership {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor="#d0f0d0", fontname="Arial"];
+
+    P1 [label="P1 (Owner)"];
+    P2 [label="P2 (Non-owner)", style="dashed"];
+
+    Object [label="Object", shape=circle, fillcolor="#b0e0b0"];
+
+    P1 -> Object [label="owns"];
+    P2 -> Object [label="refers", style=dashed];
+
+    explanation [label="Object is still owned by P1\nP2 is a non-owning reference", shape=note, fillcolor="#fdfd96"];
+    Object -> explanation [style=invis]; // just to anchor the note
+}
