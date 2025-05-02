@@ -1,0 +1,19 @@
+digraph Deadlock {
+    rankdir=LR;
+    node [shape=box style=filled fillcolor="#FFDDCC" fontname="Arial"];
+
+    Thread1 [label="Thread 1"];
+    Thread2 [label="Thread 2"];
+    LockA [label="Mutex A", shape=ellipse, fillcolor="#CCFFCC"];
+    LockB [label="Mutex B", shape=ellipse, fillcolor="#CCFFCC"];
+
+    Thread1 -> LockA [label="acquires"];
+    Thread2 -> LockB [label="acquires"];
+
+    LockB -> Thread1 [label="waiting for", style=dashed, color=red];
+    LockA -> Thread2 [label="waiting for", style=dashed, color=red];
+
+    label = "Deadlock: Circular Wait Between Threads and Locks";
+    labelloc = top;
+    fontsize = 16;
+}
