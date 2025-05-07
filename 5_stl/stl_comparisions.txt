@@ -1,0 +1,103 @@
+/*
+===============================
+🟩 STL Container Comparisons
+===============================
+*/
+
+/*
+🔷 1. vector vs list
+------------------------------
+| Operation         | vector       | list         | Better        |
+|------------------|--------------|--------------|---------------|
+| Access           | O(1)         | O(n)         | ✅ vector     |
+| Insert at end    | O(1)         | O(1)         | ➖ Tie         |
+| Insert in middle | O(n)         | O(1)*        | ✅ list       |
+| Delete in middle | O(n)         | O(1)*        | ✅ list       |
+| Cache efficiency | High         | Low          | ✅ vector     |
+
+🟢 Verdict: Use vector for access & cache locality.
+            Use list for frequent insert/delete in the middle.
+*/
+
+/*
+🔷 2. vector vs deque
+------------------------------
+| Operation         | vector       | deque        | Better        |
+|------------------|--------------|--------------|---------------|
+| Push/Pop front   | O(n)         | O(1)         | ✅ deque      |
+| Push/Pop back    | O(1)         | O(1)         | ➖ Tie         |
+| Random access    | O(1)         | O(1)         | ➖ Tie         |
+| Memory locality  | High         | Moderate     | ✅ vector     |
+
+🟢 Verdict: Use deque for double-ended operations.
+            Use vector if front insertions aren't needed.
+*/
+
+/*
+🔷 3. set vs unordered_set
+------------------------------
+| Operation         | set          | unordered_set| Better        |
+|------------------|--------------|--------------|---------------|
+| Search           | O(log n)     | O(1)*        | ✅ unordered_set |
+| Insert/Delete    | O(log n)     | O(1)*        | ✅ unordered_set |
+| Maintains order  | Yes          | No           | ✅ set (if needed) |
+
+🟢 Verdict: Use unordered_set for speed, set for ordered data.
+*/
+
+/*
+🔷 4. map vs unordered_map
+------------------------------
+| Operation         | map          | unordered_map| Better        |
+|------------------|--------------|--------------|---------------|
+| Search           | O(log n)     | O(1)*        | ✅ unordered_map |
+| Insert/Delete    | O(log n)     | O(1)*        | ✅ unordered_map |
+| Maintains order  | Yes          | No           | ✅ map (if needed) |
+
+🟢 Verdict: Use unordered_map unless ordering is required.
+*/
+
+/*
+🔷 5. priority_queue vs set
+------------------------------
+| Operation         | priority_queue | set         | Better        |
+|------------------|----------------|-------------|---------------|
+| Top element      | O(1)           | O(1)        | ➖ Tie         |
+| Insert/Delete    | O(log n)       | O(log n)    | ➖ Tie         |
+| Allows duplicate | Yes            | No          | ✅ priority_queue |
+
+🟢 Verdict: Use priority_queue for duplicates & fast top().
+            Use set for sorted iteration & uniqueness.
+*/
+
+/*
+🔷 6. stack/queue vs deque
+------------------------------
+| Operation         | stack/queue   | deque        | Better        |
+|------------------|----------------|--------------|---------------|
+| Access           | Limited (LIFO/FIFO) | Random | ✅ deque      |
+| Push/Pop         | O(1)           | O(1)         | ➖ Tie         |
+| Flexibility      | Limited        | High         | ✅ deque      |
+
+🟢 Verdict: stack/queue are wrappers around deque.
+            Use deque directly for custom behaviors.
+*/
+
+/*
+===============================
+🔶 Summary Table
+===============================
+
+| Container        | Best For                            | Search / Insert Time |
+|------------------|--------------------------------------|----------------------|
+| vector           | Random access, cache efficiency      | O(1) / O(n)          |
+| list             | Frequent middle insert/delete        | O(n) / O(1)*         |
+| deque            | Double-ended operations              | O(1) / O(1)          |
+| set              | Ordered, unique elements             | O(log n) / O(log n)  |
+| unordered_set    | Fast lookup, no order                | O(1)* / O(1)*        |
+| map              | Key-value with order                 | O(log n) / O(log n)  |
+| unordered_map    | Key-value with fast lookup           | O(1)* / O(1)*        |
+| priority_queue   | Fast top element, duplicates allowed | O(1) / O(log n)      |
+
+(* average case; worst case for unordered_* is O(n))
+*/
