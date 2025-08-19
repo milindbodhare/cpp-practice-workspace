@@ -10,9 +10,9 @@ bool isPallindrome(std::string& str)
     int length = str.length()/2;
     for(int i = 0; i < length; i++)
     {
-        if(str[i] == str[length-1-i]) return true;
+        if(str[i] != str[length-1-i]) return false;
     }
-    return false;
+    return true;
 }
 std::string removeACharacter(std::string& orgString, char& chrToRemove)
 {
