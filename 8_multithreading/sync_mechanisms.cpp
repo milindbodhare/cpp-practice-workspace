@@ -58,8 +58,7 @@ void func() {
 }
 
 //unique_lock: Flexible RAII lock – supports manual lock/unlock, moveable, and deferred locking.
-std::mutex m;
-void func() {
+void func1() {
     std::unique_lock<std::mutex> lock(m, std::defer_lock);
     // Do something
     lock.lock();
@@ -69,7 +68,7 @@ void func() {
 
 //scoped_lock: Locks multiple mutexes together (avoids deadlocks).
 std::mutex m1, m2;
-void func() {
+void func2() {
     std::scoped_lock lock(m1, m2); // Locks both safely
 }
 
